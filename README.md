@@ -10,4 +10,4 @@ https://github.com/jhlywa/chess.js/
 To Do:
 
 Create puzzle scripts in javascript
-Implement to android using either Phonegap, Rhino, or Nashorn
+Implement to android using either React Native, Phonegap, Rhino, or Nashorn
