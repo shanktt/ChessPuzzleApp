@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chess</title>
+    <base href="http://chessboardjs.com/" />
+	<link rel="stylesheet" href="css/chessboard.css" />
+  </head>
+  
+	<script src="js/chess.js"></script>
+    <div id="board" style="width: 400px"></div>
+	
+	<script src="js/json3.min.js"></script>
+	<script src="js/jquery-1.10.1.min.js"></script>
+	<script src="js/chessboard.js"></script>
+	
+    <script>
+		var chess = new Chess();
+		var FEN = '4r3/8/2p2PPk/1p6/pP2p1R1/P1B5/2P2K2/3r4 w - - 1 45'
+		chess.load(FEN) //can just use this to check if FEN is valid. 
+		board = ChessBoard('board', chess.fen());
+    </script>
+  </body>
+</html>

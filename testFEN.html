@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chess</title>
+    <link rel="stylesheet" href="css/chessboard-0.3.0.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="js/chessboard-0.3.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"></script>
+  </head>
+  <body>
+    <div id="board" style="width: 400px"></div>
+    <script>
+		var position = '6BB/P1bp4/1pp5/4P3/p7/6p1/1PRNP1b1/k3K2R'
+        var board = ChessBoard('board', position);
+    </script>
+  </body>
+</html>
