@@ -7,20 +7,101 @@
 <body>
   <script src="chess.js"></script> 
   <div id="board" style="width: 400px"></div>
+  <p>Status: <span id="status"></span></p>
+  <p>FEN: <span id="fen"></span></p>
   <p>PGN: <span id="pgn"></span></p>
   <script src="json3.min.js"></script> 
   <script src="jquery-1.10.1.min.js"></script> 
   <script src="chessboard-0.3.0.js"></script> 
   <script src="class.js"></script>  
     <script>
-      // var pgnEl = $('#pgn');
 
-      // const x = new Puzzle("test", "test");
+      var arr = ["Qg1", "Be4", "Qc5"];
 
-      // pgnEl.html(x.fenStart);
+      const x = new Puzzle("7n/3NR3/1P3p2/1p1kbN1B/1p6/1K6/6b1/1Q6 w - - 0 1", "test", arr);
 
-      var board = ChessBoard('board', 'start');
+      var board;
+      var game = new Chess();
+      var statusEl = $('#status');
+      var fenEl = $('#fen');
+      var pgnEl = $('#pgn');
 
+      game.load(x.fenStart);
+
+      var onDragStart = function(source, piece, position, orientation) {
+  if (game.game_over() === true ||
+      (game.turn() === 'w' && piece.search(/^b/) !== -1) ||
+      (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
+    return false;
+  }
+};
+
+var onDrop = function(source, target) { //how does this work
+  // see if the move is legal
+
+  var move = game.move({
+    from: source,
+    to: target,
+    promotion: 'q' // NOTE: always promote to a queen for example simplicity
+  });
+
+  console.log(x.moves[0]);
+
+  // illegal move
+  if (move === null || (!(game.history().toString()) == x.moves[0])) return 'snapback';
+
+  updateStatus();
+};
+
+// update the board position after the piece snap 
+// for castling, en passant, pawn promotion
+var onSnapEnd = function() {
+  board.position(game.fen());
+};
+
+var updateStatus = function() {
+  var status = '';
+
+  var moveColor = 'White';
+  if (game.turn() === 'b') {
+    moveColor = 'Black';
+  }
+
+  // checkmate?
+  if (game.in_checkmate() === true) {
+    status = 'Game over, ' + moveColor + ' is in checkmate.';
+  }
+
+  // draw?
+  else if (game.in_draw() === true) {
+    status = 'Game over, drawn position';
+  }
+
+  // game still on
+  else {
+    status = moveColor + ' to move';
+
+    // check?
+    if (game.in_check() === true) {
+      status += ', ' + moveColor + ' is in check';
+    }
+  }
+
+  statusEl.html(status);
+  fenEl.html(game.fen());
+  pgnEl.html(game.pgn());
+};
+
+var cfg = {
+  draggable: true,
+  position: x.fenStart,
+  onDragStart: onDragStart,
+  onDrop: onDrop,
+  onSnapEnd: onSnapEnd
+};
+board = ChessBoard('board', cfg);
+
+updateStatus();
     </script>
   </body>
 </html>
