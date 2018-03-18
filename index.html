@@ -6,14 +6,19 @@
   </head>
 <body>
   <script src="chess.js"></script> 
-  <div id="board" style="width: 400px"></div>
+<style>
+div.board {
+  overflow: hidden;
+}
+</style>
+  <div class = "board" id="board" style="width: 400px"></div>
   <p>Status: <span id="status"></span></p>
   <p>FEN: <span id="fen"></span></p>
   <p>PGN: <span id="pgn"></span></p>
   <script src="json3.min.js"></script> 
   <script src="jquery-1.10.1.min.js"></script> 
   <script src="chessboard-0.3.0.js"></script> 
-  <script src="class.js"></script>  
+  <script src="class.js"></script> 
     <script>
 var board,
   game = new Chess(),
