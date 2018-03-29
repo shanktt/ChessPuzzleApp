@@ -13,19 +13,14 @@ div.board {
 }
 </style> -->
   <div id="board" style="width: 400px; position: fixed"></div> <!--- in this style tag to overflow: hidden -->
-  <p>Status: <span id="status"></span></p>
-  <p>FEN: <span id="fen"></span></p>
-  <p>PGN: <span id="pgn"></span></p>
+
   <script src="json3.min.js"></script> 
   <script src="jquery-1.10.1.min.js"></script> 
   <script src="chessboard-0.3.0.js"></script> 
   <script src="class.js"></script> 
     <script>
 var board,
-  game = new Chess(),
-  statusEl = $('#status'),
-  fenEl = $('#fen'),
-  pgnEl = $('#pgn');
+  game = new Chess();
 
 // do not pick up pieces if the game is over
 // only pick up pieces for the side to move
@@ -85,9 +80,6 @@ var updateStatus = function() {
     }
   }
 
-  statusEl.html(status);
-  fenEl.html(game.fen());
-  pgnEl.html(game.pgn());
 };
 
 var cfg = {
